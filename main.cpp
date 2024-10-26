@@ -18,9 +18,9 @@ int main() {
     while(getline(fin_vect, random)) {
         read_vect.push_back(random);
     }
+    fin_vect.close();
     auto end_read_v = high_resolution_clock::now();
     auto read_v = duration_cast<microseconds>(end_read_v - start_read_v);
-    fin_vect.close();
 
     //vector: duration of sort
     auto start_sort_v = high_resolution_clock::now();
@@ -48,15 +48,9 @@ int main() {
     while(getline(fin_list, input)) {
         read_list.push_back(input);
     }
+    fin_list.close(); //getting really quick readings compared to the other thing, should maybe test to see if its actually reading all
     auto end_read_l = high_resolution_clock::now();
     auto read_l = duration_cast<microseconds>(end_read_l - start_read_l);
-    fin_list.close(); //getting really quick readings compared to the other thing, should maybe test to see if its actually reading all
-    int count = 0;
-    for (auto it = read_list.begin(); it != read_list.end(); ++it) {
-        //cout << *it << endl;
-        count++;
-    }
-    cout << count << endl; // working correctluy
 
     //list: duration of sort
     auto start_sort_l = high_resolution_clock::now();
@@ -89,9 +83,9 @@ int main() {
     while(getline(fin_set, inp)) {
         read_set.insert(inp);
     }
+    fin_set.close();
     auto end_read_s = high_resolution_clock::now();
     auto read_s = duration_cast<microseconds>(end_read_s - start_read_s);
-    fin_set.close();
 
     //set: duration of insert
     auto start_insert_s = high_resolution_clock::now();
@@ -101,11 +95,9 @@ int main() {
 
     //set: duration of delete
     auto start_delete_s = high_resolution_clock::now();
-    auto in = read_set.begin();
-    advance(in, read_set.size() / 2);
-    read_set.erase(in);
+    read_set.erase("TESTCODE");
     auto end_delete_s = high_resolution_clock::now();
-    auto delete_s = duration_cast<microseconds>(end_delete_s - start_delete_l);
+    auto delete_s = duration_cast<microseconds>(end_delete_s - start_delete_s);
 
 
     //starting to debate if we are supposed to use microseconds instead of milliseconds so we get more accurate readings
@@ -114,7 +106,7 @@ int main() {
     cout << left << setw(13) << "Read" << setw(13) << read_v.count() << setw(13) << read_l.count() << setw(13) << read_s.count() << endl;
     cout << left << setw(13) << "Sort" << setw(13) << sort_v.count() << setw(13) << sort_l.count() << setw(13) << "-1" << endl;
     cout << left << setw(13) << "Insert" << setw(13) << insert_v.count() << setw(13) << insert_l.count() << setw(13) << insert_s.count() << endl;
-    cout << left << setw(13) << "Delete" << setw(13) << delete_v.count() << setw(13) << delete_l.count() << endl;
+    cout << left << setw(13) << "Delete" << setw(13) << delete_v.count() << setw(13) << delete_l.count() << setw(13) << delete_s.count() << endl;
     return 0;
 }
 
