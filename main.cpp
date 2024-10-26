@@ -19,26 +19,26 @@ int main() {
         read_vect.push_back(random);
     }
     auto end_read_v = high_resolution_clock::now();
-    auto read_v = duration_cast<milliseconds>(end_read_v - start_read_v);
+    auto read_v = duration_cast<microseconds>(end_read_v - start_read_v);
     fin_vect.close();
 
     //vector: duration of sort
     auto start_sort_v = high_resolution_clock::now();
     sort(read_vect.begin(), read_vect.end());
     auto end_sort_v = high_resolution_clock::now();
-    auto sort_v = duration_cast<milliseconds>(end_sort_v - start_sort_v);
+    auto sort_v = duration_cast<microseconds>(end_sort_v - start_sort_v);
 
     //vector: duration of insert
     auto start_insert_v = high_resolution_clock::now();
     read_vect.insert(read_vect.begin() + read_vect.size() / 2, "TESTCODE");
     auto end_insert_v = high_resolution_clock::now();
-    auto insert_v = duration_cast<milliseconds>(end_insert_v - start_insert_v);
+    auto insert_v = duration_cast<microseconds>(end_insert_v - start_insert_v);
 
     //vector: duration of delete
     auto start_delete_v = high_resolution_clock::now();
     read_vect.erase(read_vect.begin() + read_vect.size() / 2);
     auto end_delete_v = high_resolution_clock::now();
-    auto delete_v = duration_cast<milliseconds>(end_delete_v - start_delete_v);
+    auto delete_v = duration_cast<microseconds>(end_delete_v - start_delete_v);
 
     //list: duration of read
     ifstream fin_list("codes.txt");
@@ -49,7 +49,7 @@ int main() {
         read_list.push_back(input);
     }
     auto end_read_l = high_resolution_clock::now();
-    auto read_l = duration_cast<milliseconds>(end_read_l - start_read_l);
+    auto read_l = duration_cast<microseconds>(end_read_l - start_read_l);
     fin_list.close(); //getting really quick readings compared to the other thing, should maybe test to see if its actually reading all
     int count = 0;
     for (auto it = read_list.begin(); it != read_list.end(); ++it) {
@@ -62,7 +62,7 @@ int main() {
     auto start_sort_l = high_resolution_clock::now();
     read_list.sort();
     auto end_sort_l = high_resolution_clock::now();
-    auto sort_l = duration_cast<milliseconds>(end_sort_l - start_sort_l);
+    auto sort_l = duration_cast<microseconds>(end_sort_l - start_sort_l);
 
     //list: duration of insert
     auto start_insert_l = high_resolution_clock::now();
@@ -70,7 +70,15 @@ int main() {
     advance(it, read_list.size() / 2);
     read_list.insert(it, "TESTCODE");
     auto end_insert_l = high_resolution_clock::now();
-    auto insert_l = duration_cast<milliseconds>(end_insert_l - start_insert_l);
+    auto insert_l = duration_cast<microseconds>(end_insert_l - start_insert_l);
+
+    //list: duration of delete
+    auto start_delete_l = high_resolution_clock::now();
+    auto in = read_list.begin();
+    advance(in, read_list.size() / 2);
+    read_list.erase(in);
+    auto end_delete_l = high_resolution_clock::now();
+    auto delete_l = duration_cast<microseconds>(end_delete_l - start_delete_l);
 
 
     //set: duration of read
@@ -82,15 +90,31 @@ int main() {
         read_set.insert(inp);
     }
     auto end_read_s = high_resolution_clock::now();
-    auto read_s = duration_cast<milliseconds>(end_read_s - start_read_s);
+    auto read_s = duration_cast<microseconds>(end_read_s - start_read_s);
     fin_set.close();
 
+    //set: duration of insert
+    auto start_insert_s = high_resolution_clock::now();
+    read_set.insert("TESTCODE");
+    auto end_insert_s = high_resolution_clock::now();
+    auto insert_s = duration_cast<microseconds>(end_insert_s - start_insert_s);
+
+    //set: duration of delete
+    auto start_delete_s = high_resolution_clock::now();
+    auto in = read_set.begin();
+    advance(in, read_set.size() / 2);
+    read_set.erase(in);
+    auto end_delete_s = high_resolution_clock::now();
+    auto delete_s = duration_cast<microseconds>(end_delete_s - start_delete_l);
+
+
     //starting to debate if we are supposed to use microseconds instead of milliseconds so we get more accurate readings
+    //figured it out since the set is also 1 for the inertion time on the sampe output or close to that it must be in microseconds
     cout << left << setw(13) << "Operation" << setw(13) << "Vector" << setw(13) << "List" << setw(13) << "Set" << endl;
     cout << left << setw(13) << "Read" << setw(13) << read_v.count() << setw(13) << read_l.count() << setw(13) << read_s.count() << endl;
     cout << left << setw(13) << "Sort" << setw(13) << sort_v.count() << setw(13) << sort_l.count() << setw(13) << "-1" << endl;
-    cout << left << setw(13) << "Insert" << setw(13) << insert_v.count() << setw(13) << insert_l.count() << endl;
-    cout << left << setw(13) << "Delete" << setw(13) << delete_v.count() << endl;
+    cout << left << setw(13) << "Insert" << setw(13) << insert_v.count() << setw(13) << insert_l.count() << setw(13) << insert_s.count() << endl;
+    cout << left << setw(13) << "Delete" << setw(13) << delete_v.count() << setw(13) << delete_l.count() << endl;
     return 0;
 }
 
