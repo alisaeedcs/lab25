@@ -43,11 +43,11 @@ int main() {
     auto duration_delete_v = duration_cast<milliseconds>(end_delete_v - start_delete_v);
     auto delete_v = duration_delete_v.count();
 
-    cout << left << setw(10) << "Operation" << setw(10) << "Vector" << setw(10) << "List" << setw(10) << "Set" << endl;
-    cout << left << setw(10) << "Read" << setw(10) << read_v;
-    cout << left << setw(10) << "Sort" << setw(10) << sort_v;
-    cout << left << setw(10) << "Insert" << setw(10) << insert_v;
-    cout << left << setw(10) << "Delete" << setw(10) << delete_v;
+    cout << left << setw(13) << "Operation" << setw(13) << "Vector" << setw(13) << "List" << setw(13) << "Set" << endl;
+    cout << left << setw(13) << "Read" << setw(13) << read_v << endl;
+    cout << left << setw(13) << "Sort" << setw(13) << sort_v << endl;
+    cout << left << setw(13) << "Insert" << setw(13) << insert_v << endl;
+    cout << left << setw(13) << "Delete" << setw(13) << delete_v << endl;
     return 0;
 }
 
