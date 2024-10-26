@@ -19,30 +19,26 @@ int main() {
         read_vect.push_back(random);
     }
     auto end_read_v = high_resolution_clock::now();
-    auto duration_read_v = duration_cast<milliseconds>(end_read_v - start_read_v);
-    auto read_v = duration_read_v.count();
+    auto read_v = duration_cast<milliseconds>(end_read_v - start_read_v);
     fin_vect.close();
 
     //vector: duration of sort
     auto start_sort_v = high_resolution_clock::now();
     sort(read_vect.begin(), read_vect.end());
     auto end_sort_v = high_resolution_clock::now();
-    auto duration_sort_v = duration_cast<milliseconds>(end_sort_v - start_sort_v);
-    auto sort_v = duration_sort_v.count();
+    auto sort_v = duration_cast<milliseconds>(end_sort_v - start_sort_v);
 
     //vector: duration of insert
     auto start_insert_v = high_resolution_clock::now();
     read_vect.insert(read_vect.begin() + read_vect.size() / 2, "TESTCODE");
     auto end_insert_v = high_resolution_clock::now();
-    auto duration_insert_v = duration_cast<milliseconds>(end_insert_v - start_insert_v);
-    auto insert_v = duration_insert_v.count();
+    auto insert_v = duration_cast<milliseconds>(end_insert_v - start_insert_v);
 
     //vector: duration of delete
     auto start_delete_v = high_resolution_clock::now();
     read_vect.erase(read_vect.begin() + read_vect.size() / 2);
     auto end_delete_v = high_resolution_clock::now();
-    auto duration_delete_v = duration_cast<milliseconds>(end_delete_v - start_delete_v);
-    auto delete_v = duration_delete_v.count();
+    auto delete_v = duration_cast<milliseconds>(end_delete_v - start_delete_v);
 
     //list: duration of read
     ifstream fin_list("codes.txt");
@@ -53,8 +49,7 @@ int main() {
         read_list.push_back(input);
     }
     auto end_read_l = high_resolution_clock::now();
-    auto duration_read_l = duration_cast<milliseconds>(end_read_l - start_read_l);
-    auto read_l = duration_read_l.count();
+    auto read_l = duration_cast<milliseconds>(end_read_l - start_read_l);
     fin_list.close(); //getting really quick readings compared to the other thing, should maybe test to see if its actually reading all
     int count = 0;
     for (auto it = read_list.begin(); it != read_list.end(); ++it) {
@@ -63,26 +58,31 @@ int main() {
     }
     cout << count << endl; // working correctluy
 
+    //list: duration of sort
+    auto start_sort_l = high_resolution_clock::now();
+    read_list.sort();
+    auto end_sort_l = high_resolution_clock::now();
+    auto sort_l = duration_cast<milliseconds>(end_sort_l - start_sort_l);
+
     //set: duration of read
     ifstream fin_set("codes.txt");
     auto start_read_s = high_resolution_clock::now();
     set<string> read_set;
-    string input;
-    while(getline(fin_set, input)) {
-        read_set.insert(input);
+    string inp;
+    while(getline(fin_set, inp)) {
+        read_set.insert(inp);
     }
     auto end_read_s = high_resolution_clock::now();
-    auto duration_read_s = duration_cast<milliseconds>(end_read_s - start_read_s);
-    auto read_s = duration_read_s.count();
+    auto read_s = duration_cast<milliseconds>(end_read_s - start_read_s);
     fin_set.close();
 
 
 
     cout << left << setw(13) << "Operation" << setw(13) << "Vector" << setw(13) << "List" << setw(13) << "Set" << endl;
-    cout << left << setw(13) << "Read" << setw(13) << read_v << setw(13) << read_l << endl;
-    cout << left << setw(13) << "Sort" << setw(13) << sort_v << endl;
-    cout << left << setw(13) << "Insert" << setw(13) << insert_v << endl;
-    cout << left << setw(13) << "Delete" << setw(13) << delete_v << endl;
+    cout << left << setw(13) << "Read" << setw(13) << read_v.count() << setw(13) << read_l.count() << setw(13) << read_s.count() << endl;
+    cout << left << setw(13) << "Sort" << setw(13) << sort_v.count() << setw(13) << sort_l.count() << setw(13) << "-1" << endl;
+    cout << left << setw(13) << "Insert" << setw(13) << insert_v.count() << endl;
+    cout << left << setw(13) << "Delete" << setw(13) << delete_v.count() << endl;
     return 0;
 }
 
