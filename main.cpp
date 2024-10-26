@@ -64,6 +64,15 @@ int main() {
     auto end_sort_l = high_resolution_clock::now();
     auto sort_l = duration_cast<milliseconds>(end_sort_l - start_sort_l);
 
+    //list: duration of insert
+    auto start_insert_l = high_resolution_clock::now();
+    auto it = read_list.begin();
+    advance(it, read_list.size() / 2);
+    read_list.insert(it, "TESTCODE");
+    auto end_insert_l = high_resolution_clock::now();
+    auto insert_l = duration_cast<milliseconds>(end_insert_l - start_insert_l);
+
+
     //set: duration of read
     ifstream fin_set("codes.txt");
     auto start_read_s = high_resolution_clock::now();
@@ -76,12 +85,11 @@ int main() {
     auto read_s = duration_cast<milliseconds>(end_read_s - start_read_s);
     fin_set.close();
 
-
-
+    //starting to debate if we are supposed to use microseconds instead of milliseconds so we get more accurate readings
     cout << left << setw(13) << "Operation" << setw(13) << "Vector" << setw(13) << "List" << setw(13) << "Set" << endl;
     cout << left << setw(13) << "Read" << setw(13) << read_v.count() << setw(13) << read_l.count() << setw(13) << read_s.count() << endl;
     cout << left << setw(13) << "Sort" << setw(13) << sort_v.count() << setw(13) << sort_l.count() << setw(13) << "-1" << endl;
-    cout << left << setw(13) << "Insert" << setw(13) << insert_v.count() << endl;
+    cout << left << setw(13) << "Insert" << setw(13) << insert_v.count() << setw(13) << insert_l.count() << endl;
     cout << left << setw(13) << "Delete" << setw(13) << delete_v.count() << endl;
     return 0;
 }
